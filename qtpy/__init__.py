@@ -81,7 +81,7 @@ class QtBindingsNotFoundError(PythonQtError):
     _msg = 'No Qt bindings could be found'
     
     def __init__(self):
-        super().__init__(_msg)
+        super().__init__(self._msg)
 
 
 class QtModuleNotFoundError(ModuleNotFoundError, PythonQtError):
@@ -256,7 +256,7 @@ if API in PYSIDE6_API:
         QT6 = PYSIDE6 = True
 
     except ImportError:
-        API = 'pyqt5'
+        raise QtBindingsNotFoundError
     else:
         os.environ[QT_API] = API
 
